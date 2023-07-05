@@ -1,0 +1,17 @@
+{
+  "timestamp": "2022-12-09 14:31:48.000000 UTC",
+  "latitude": 53.536448,
+  "longitude": 10.06240,
+  "no_ppb": null,
+  "no2_ppb": 6.229,
+  "o3_ppb": null,
+  "co_ppm": 0.263,
+  "co2_ppm": 440.868,
+  "pmch1_perl": 85020,
+  "pmch2_perl": 7080,
+  "pmch3_perl": 360,
+  "pmch4_perl": 360,
+  "pmch5_perl": 300,
+  "pmch6_perl": 0,
+  "pm25_ugm3": 11.567
+}

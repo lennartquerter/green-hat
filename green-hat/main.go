@@ -3,6 +3,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"google.io/green-hat/infra"
 	"google.io/green-hat/models"
 	"log"
@@ -10,9 +11,12 @@ import (
 	"os"
 )
 
+type HttpServer struct {
+	token *string
+}
+
 func main() {
 	log.Print("starting server...")
-	http.HandleFunc("/ingest", handler)
 
 	// Determine port for HTTP service.
 	port := os.Getenv("PORT")
@@ -21,6 +25,16 @@ func main() {
 		log.Printf("defaulting to port %s", port)
 	}
 
+	token := os.Getenv("API_TOKEN")
+	if token == "" {
+		token = "api-key"
+		fmt.Print("Using DEFAULT TOKEN")
+	}
+
+	s := &HttpServer{token: &token}
+
+	http.HandleFunc("/ingest", s.handler)
+
 	// Start HTTP server.
 	log.Printf("listening on port %s", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
@@ -28,7 +42,7 @@ func main() {
 	}
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func (server HttpServer) handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "StatusMethodNotAllowed", http.StatusMethodNotAllowed)
 
@@ -41,6 +55,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	fmt.Printf("Data Recieved: %v", data)
+	fmt.Printf("HOST: %s", r.Host)
+
 	err = infra.PublishRoadData(data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
