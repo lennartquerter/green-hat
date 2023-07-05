@@ -1,4 +1,4 @@
-package main
+package infra
 
 import (
 	"cloud.google.com/go/pubsub"
@@ -26,7 +26,6 @@ func PublishRoadData(roadData models.RoadConfig) error {
 
 	id, err := result.Get(ctx)
 	if err != nil {
-		// Error handling code can be added here.
 		fmt.Printf("Failed to publish: %v\n", err)
 		return err
 	}

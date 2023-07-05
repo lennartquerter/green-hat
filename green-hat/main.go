@@ -3,7 +3,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"google.io/green-hat/infra"
 	"google.io/green-hat/models"
 	"log"
 	"net/http"
@@ -12,7 +12,7 @@ import (
 
 func main() {
 	log.Print("starting server...")
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/ingest", handler)
 
 	// Determine port for HTTP service.
 	port := os.Getenv("PORT")
@@ -29,7 +29,11 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "StatusMethodNotAllowed", http.StatusMethodNotAllowed)
 
+		return
+	}
 	var data models.RoadConfig
 
 	err := json.NewDecoder(r.Body).Decode(&data)
@@ -37,7 +41,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	PublishRoadData(data)
-
-	fmt.Fprintf(w, "Hello !\n")
+	err = infra.PublishRoadData(data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 }
