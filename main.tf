@@ -24,6 +24,17 @@ resource "google_pubsub_topic" "ingest-schema" {
 
 resource "google_bigquery_dataset" "raw_data" {
   dataset_id = "raw__road_data"
+  location   = "europe-west1"
+}
+
+resource "google_bigquery_dataset" "raw_dump" {
+  dataset_id = "raw__dump"
+  location   = "europe-west1"
+}
+
+resource "google_bigquery_dataset" "road_data" {
+  dataset_id = "road_data"
+  location   = "europe-west1"
 }
 
 resource "google_bigquery_table" "main" {
