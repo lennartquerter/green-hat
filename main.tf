@@ -65,3 +65,23 @@ resource "google_pubsub_schema" "schema" {
     update = null
   }
 }
+
+resource "google_bigquery_dataset" "road_config" {
+  dataset_id                      = "road_config"
+  location                        = "europe-west1"
+  timeouts {
+    create = null
+    delete = null
+    update = null
+  }
+}
+
+resource "google_bigquery_dataset" "road_data" {
+  dataset_id                      = "road_data"
+  location                        = "europe-west1"
+  timeouts {
+    create = null
+    delete = null
+    update = null
+  }
+}
