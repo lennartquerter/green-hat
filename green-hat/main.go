@@ -1,4 +1,3 @@
-// Sample run-helloworld is a minimal Cloud Run service.
 package main
 
 import (
@@ -12,7 +11,8 @@ import (
 )
 
 type HttpServer struct {
-	token *string
+	Token        *string
+	AllowedHosts *string
 }
 
 func main() {
@@ -28,10 +28,16 @@ func main() {
 	token := os.Getenv("API_TOKEN")
 	if token == "" {
 		token = "api-key"
-		fmt.Print("Using DEFAULT TOKEN")
+		fmt.Print("Using DEFAULT API TOKEN\n")
 	}
 
-	s := &HttpServer{token: &token}
+	hosts := os.Getenv("ALLOWED_HOSTS")
+	if hosts == "" {
+		hosts = "http://localhost"
+		fmt.Print("Using DEFAULT API TOKEN\n")
+	}
+
+	s := &HttpServer{Token: &token, AllowedHosts:}
 
 	http.HandleFunc("/ingest", s.handler)
 
@@ -55,8 +61,16 @@ func (server HttpServer) handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Printf("Data Recieved: %v", data)
-	fmt.Printf("HOST: %s", r.Host)
+
+	fmt.Printf("Data Recieved: %+v\n", data)
+	fmt.Printf("HOST: %s\n", r.Host)
+	fmt.Printf("URL: %s\n", r.URL)
+
+	for name, values := range r.Header {
+		for _, value := range values {
+			fmt.Println(name, value)
+		}
+	}
 
 	err = infra.PublishRoadData(data)
 	if err != nil {
