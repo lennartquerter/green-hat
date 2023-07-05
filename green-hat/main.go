@@ -37,11 +37,10 @@ func main() {
 		fmt.Print("Using DEFAULT API TOKEN\n")
 	}
 
-	s := &HttpServer{Token: &token, AllowedHosts:}
+	s := &HttpServer{Token: &token, AllowedHosts: &hosts}
 
 	http.HandleFunc("/ingest", s.handler)
 
-	// Start HTTP server.
 	log.Printf("listening on port %s", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal(err)
@@ -54,7 +53,7 @@ func (server HttpServer) handler(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
-	var data models.RoadConfig
+	var data models.RoadDataInput
 
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {

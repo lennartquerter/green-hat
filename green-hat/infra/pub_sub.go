@@ -7,7 +7,7 @@ import (
 	"google.io/green-hat/models"
 )
 
-func PublishRoadData(roadData models.RoadConfig) error {
+func PublishRoadData(roadData models.RoadDataInput) error {
 	projectID := "qwiklabs-gcp-02-f86a07b06de4"
 	topicID := "green-hat-ingest"
 

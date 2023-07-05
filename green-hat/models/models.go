@@ -1,6 +1,6 @@
 package models
 
-type RoadConfig struct {
+type RoadDataInput struct {
 	Timestamp string      `json:"timestamp"`
 	Latitude  float64     `json:"latitude"`
 	Longitude float64     `json:"longitude"`
