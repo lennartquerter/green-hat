@@ -47,22 +47,6 @@ resource "google_pubsub_subscription" "raw_data_ingest" {
   depends_on = [google_project_iam_member.viewer, google_project_iam_member.editor]
 }
 
-resource "google_bigquery_table" "main" {
-  deletion_protection = false
-  dataset_id          = google_bigquery_dataset.raw_data.dataset_id
-  table_id            = "raw__road_data"
-  schema              = file("schemata/schema_road_data.json")
-}
-
-resource "google_bigquery_table" "import" {
-  deletion_protection = false
-  dataset_id          = google_bigquery_dataset.raw_data.dataset_id
-  table_id            = "raw_road_data_import"
-  schema              = file("schemata/schema_road_data.json")
-}
-
-
-
 resource "google_project_iam_member" "viewer" {
   project = data.google_project.project.project_id
   role    = "roles/bigquery.metadataViewer"
@@ -73,28 +57,4 @@ resource "google_project_iam_member" "editor" {
   project = data.google_project.project.project_id
   role    = "roles/bigquery.dataEditor"
   member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
-}
-
-resource "google_bigquery_table" "timestamp_road_mapping" {
-  dataset_id = "timestamp_road_mapping"
-  table_id   = "timestamp_road_mapping"
-  schema     = file("schemata/schema_timestamp_mapping.json")
-}
-
-resource "google_bigquery_table" "road_config" {
-  dataset_id = google_bigquery_dataset.road_config.dataset_id
-  schema     = file("schemata/schema_road_config.json")
-  table_id   = "road_config"
-}
-
-resource "google_bigquery_table" "road_config_geo" {
-  dataset_id = google_bigquery_dataset.road_config.dataset_id
-  schema     = file("schemata/schema_road_config_geo.json")
-  table_id   = "road_config_geo"
-}
-
-resource "google_bigquery_table" "sensor_target" {
-  dataset_id = google_bigquery_dataset.road_config.dataset_id
-  schema     = file("schemata/schema_sensor_target.json")
-  table_id   = "sensor_target"
 }
