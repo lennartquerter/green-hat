@@ -27,6 +27,8 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+
+	var b := r.Body
 	name := os.Getenv("NAME")
 	if name == "" {
 		name = "World"
