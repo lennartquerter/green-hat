@@ -2,7 +2,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"google.io/green-hat/models"
 	"log"
 	"net/http"
 	"os"
@@ -28,10 +30,14 @@ func main() {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
-	var b := r.Body
-	name := os.Getenv("NAME")
-	if name == "" {
-		name = "World"
+	var data models.RoadConfig
+
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
-	fmt.Fprintf(w, "Hello %s!\n", name)
+	PublishRoadData(data)
+
+	fmt.Fprintf(w, "Hello !\n")
 }
