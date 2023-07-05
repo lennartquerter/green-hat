@@ -1,0 +1,4 @@
+[
+  { "mode": "NULLABLE", "name": "timestamp", "type": "TIMESTAMP" },
+  { "mode": "NULLABLE", "name": "road_id", "type": "INTEGER" }
+]

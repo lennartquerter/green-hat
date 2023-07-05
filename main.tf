@@ -87,6 +87,21 @@ resource "google_project_iam_member" "viewer" {
 
 resource "google_project_iam_member" "editor" {
   project = data.google_project.project.project_id
-  role   = "roles/bigquery.dataEditor"
-  member = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+  role    = "roles/bigquery.dataEditor"
+  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+}
+
+resource "google_bigquery_dataset" "timestamp_road_mapping" {
+  dataset_id = "timestamp_road_mapping"
+  location   = "europe-west1"
+}
+
+import {
+  to = google_bigquery_table.timestamp_road_mapping
+  id = "qwiklabs-gcp-03-8a82d5a047b0/timestamp_road_mapping/timestamp_road_mapping"
+}
+resource "google_bigquery_table" "timestamp_road_mapping" {
+  dataset_id = "timestamp_road_mapping"
+  table_id   = "timestamp_road_mapping"
+  schema     = file("schema_timestamp_mapping.json")
 }
