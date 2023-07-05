@@ -8,8 +8,11 @@ terraform {
 }
 
 provider "google" {
-  project = "qwiklabs-gcp-02-f86a07b06de4"
+  project = "qwiklabs-gcp-03-8a82d5a047b0"
   region  = "eu-west1"
+}
+
+data "google_project" "project" {
 }
 
 resource "google_pubsub_topic" "ingest-schema" {
@@ -57,7 +60,6 @@ resource "google_pubsub_subscription" "raw_data_ingest" {
 resource "google_pubsub_schema" "schema" {
   definition = "syntax = \"proto3\";\nmessage RXEvent {\n  optional string timestamp = 1; // GPS Timestamp in UTC\n  optional double latitude = 2; // GPS position \n  optional double longitude = 3; // GPS position \n  optional double no_ppb = 4; // NO concentration in parts per billion\n  optional double no2_ppb = 5; // NO2 concentration in parts per billion\n  optional double o3_ppb = 6; // O3 concentration in parts per billion\n  optional double co_ppm = 7; // CO concentration in parts per million\n  optional double co2_ppm = 8; // CO2 concentration in parts per million\n  optional int32 pmch1_perl = 9; // PM channel 1 measurement in counts per litre\n  optional int32 pmch2_perl = 10; // PM channel 2 measurement in counts per litre\n  optional int32 pmch3_perl = 11; // PM channel 3 measurement in counts per litre\n  optional int32 pmch4_perl = 12; // PM channel 4 measurement in counts per litre\n  optional int32 pmch5_perl = 13; // PM channel 5 measurement in counts per litre\n  optional int32 pmch6_perl = 14; // PM channel 6 measurement in counts per litre\n  optional double pm25_ugm3 = 15; // PM2.5 concentration in µg/m3\n}"
   name       = "green-hat-schema-v1"
-  project    = "qwiklabs-gcp-02-f86a07b06de4"
   type       = "PROTOCOL_BUFFER"
   timeouts {
     create = null
