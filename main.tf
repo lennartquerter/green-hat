@@ -30,6 +30,6 @@ resource "google_pubsub_subscription" "raw_data_ingest" {
   topic = google_pubsub_topic.ingest.name
 
   bigquery_config {
-    table = "${google_bigquery_table.main.project}.${google_bigquery_table.main.dataset_id}.${google_bigquery_table.main.table_id}"
+    table = "${google_bigquery_table.main.project}:${google_bigquery_table.main.dataset_id}.${google_bigquery_table.main.table_id}"
   }
 }
