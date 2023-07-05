@@ -100,19 +100,19 @@ resource "google_bigquery_table" "timestamp_road_mapping" {
 }
 
 resource "google_bigquery_table" "road_config" {
-  dataset_id          = "road_config"
+  dataset_id          = google_bigquery_dataset.road_config.dataset_id
   schema              = file("schemata/schema_road_config.json")
   table_id            = "road_config"
 }
 
 resource "google_bigquery_table" "road_config_geo" {
-  dataset_id          = "road_config"
+  dataset_id          = google_bigquery_dataset.road_config.dataset_id
   schema              = file("schemata/schema_road_config_geo.json")
   table_id            = "road_config_geo"
 }
 
 resource "google_bigquery_table" "sensor_target" {
-  dataset_id          = "road_config"
+  dataset_id          = google_bigquery_dataset.road_config.dataset_id
   schema              = file("schemata/schema_sensor_target.json")
   table_id            = "sensor_target"
 }
