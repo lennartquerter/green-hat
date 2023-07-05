@@ -18,11 +18,11 @@ data "google_project" "project" {
 resource "google_pubsub_topic" "ingest-schema" {
   name = "green-hat-ingest-schema"
 
-    depends_on = [google_pubsub_schema.schema]
-    schema_settings {
-      schema   = google_pubsub_schema.schema.id
-      encoding = "JSON"
-    }
+  depends_on = [google_pubsub_schema.schema]
+  schema_settings {
+    schema   = google_pubsub_schema.schema.id
+    encoding = "JSON"
+  }
 }
 
 resource "google_bigquery_dataset" "raw_data" {
@@ -70,8 +70,8 @@ resource "google_pubsub_schema" "schema" {
 }
 
 resource "google_bigquery_dataset" "road_config" {
-  dataset_id                      = "road_config"
-  location                        = "europe-west1"
+  dataset_id = "road_config"
+  location   = "europe-west1"
   timeouts {
     create = null
     delete = null
@@ -81,8 +81,8 @@ resource "google_bigquery_dataset" "road_config" {
 
 resource "google_project_iam_member" "viewer" {
   project = data.google_project.project.project_id
-  role   = "roles/bigquery.metadataViewer"
-  member = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+  role    = "roles/bigquery.metadataViewer"
+  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
 }
 
 resource "google_project_iam_member" "editor" {

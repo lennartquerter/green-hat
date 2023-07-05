@@ -1,4 +1,4 @@
-  [
+[
   {
     "description": "GPS Timestamp in UTC",
     "mode": "NULLABLE",
@@ -90,4 +90,3 @@
     "type": "FLOAT64"
   }
 ]
-
