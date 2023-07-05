@@ -12,14 +12,14 @@ provider "google" {
   region  = "eu-west1"
 }
 
-resource "google_pubsub_topic" "ingest" {
-  name = "green-hat-ingest"
+resource "google_pubsub_topic" "ingest-schema" {
+  name = "green-hat-ingest-schema"
 
-  depends_on = [google_pubsub_schema.schema]
-  schema_settings {
-    schema   = google_pubsub_schema.schema.id
-    encoding = "JSON"
-  }
+    depends_on = [google_pubsub_schema.schema]
+    schema_settings {
+      schema   = google_pubsub_schema.schema.id
+      encoding = "JSON"
+    }
 }
 
 resource "google_bigquery_dataset" "raw_data" {
@@ -128,7 +128,7 @@ EOF
 
 resource "google_pubsub_subscription" "raw_data_ingest" {
   name  = "green-hat"
-  topic = google_pubsub_topic.ingest.name
+  topic = google_pubsub_topic.ingest-schema.name
 
   bigquery_config {
     table            = "${google_bigquery_table.main.project}:${google_bigquery_table.main.dataset_id}.${google_bigquery_table.main.table_id}"
