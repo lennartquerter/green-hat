@@ -9,7 +9,7 @@ resource "google_pubsub_topic" "ingest-schema" {
 }
 
 resource "google_pubsub_schema" "schema" {
-  definition = file("pubsub.proto")
+  definition = file("schemata/pubsub.proto")
   name       = "green-hat-schema-v1"
   type       = "PROTOCOL_BUFFER"
   timeouts {
