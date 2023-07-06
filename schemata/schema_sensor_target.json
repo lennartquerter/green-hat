@@ -1,0 +1,16 @@
+[
+  { "name": "timestamp", "type": "TIMESTAMP" },
+  { "name": "lat_lon", "type": "GEOGRAPHY" },
+  { "name": "no_ppb", "type": "FLOAT" },
+  { "name": "no2_ppb", "type": "FLOAT" },
+  { "name": "o3_ppb", "type": "FLOAT" },
+  { "name": "co_ppm", "type": "FLOAT" },
+  { "name": "co2_ppm", "type": "FLOAT" },
+  { "name": "pmch1_perl", "type": "INTEGER" },
+  { "name": "pmch2_perl", "type": "INTEGER" },
+  { "name": "pmch3_perl", "type": "INTEGER" },
+  { "name": "pmch4_perl", "type": "INTEGER" },
+  { "name": "pmch5_perl", "type": "INTEGER" },
+  { "name": "pmch6_perl", "type": "INTEGER" },
+  { "name": "pm25_ugm3", "type": "FLOAT" }
+]

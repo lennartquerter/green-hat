@@ -1,0 +1,18 @@
+syntax = "proto3";
+message RXEvent {
+optional string timestamp = 1; // GPS Timestamp in UTC
+optional double latitude = 2; // GPS position 
+optional double longitude = 3; // GPS position 
+optional double no_ppb = 4; // NO concentration in parts per billion
+optional double no2_ppb = 5; // NO2 concentration in parts per billion
+optional double o3_ppb = 6; // O3 concentration in parts per billion
+optional double co_ppm = 7; // CO concentration in parts per million
+optional double co2_ppm = 8; // CO2 concentration in parts per million
+optional int32 pmch1_perl = 9; // PM channel 1 measurement in counts per litre
+optional int32 pmch2_perl = 10; // PM channel 2 measurement in counts per litre
+optional int32 pmch3_perl = 11; // PM channel 3 measurement in counts per litre
+optional int32 pmch4_perl = 12; // PM channel 4 measurement in counts per litre
+optional int32 pmch5_perl = 13; // PM channel 5 measurement in counts per litre
+optional int32 pmch6_perl = 14; // PM channel 6 measurement in counts per litre
+optional double pm25_ugm3 = 15; // PM2.5 concentration in µg/m3
+}

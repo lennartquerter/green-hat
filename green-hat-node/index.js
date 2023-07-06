@@ -1,6 +1,25 @@
-var http = require('http');
+const express = require('express');
+const { BigQuery } = require('@google-cloud/bigquery');
+const app = express();
+const bigquery = new BigQuery();
 
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end('Hello World!');
-}).listen(8080);
+app.post('/map-to-osm-way', async (req, res) => {
+    console.log('Received request', req.body);
+});
+
+// async function fetchData(lat, lon) {
+//     const url = `https://nominatim.openstreetmap.org/reverse.php?lat=${lat}&lon=${lon}&zoom=16&format=jsonv2`;
+//
+//     try {
+//         const response = await fetch(url);
+//         const body = await response.json();
+//         return body.osm_id;
+//     } catch (error) {
+//         console.error(error);
+//         return null;  // Return null or some error value when there's an exception
+//     }
+// }
+
+app.listen(8080, () => {
+    console.log('Server running on port 8080');
+});
