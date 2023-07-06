@@ -62,9 +62,6 @@ func (server HttpServer) handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("Data Recieved: %+v\n", data)
-	fmt.Printf("HOST: %s\n", r.Host)
-	fmt.Printf("URL: %s\n", r.URL)
-
 	for name, values := range r.Header {
 		for _, value := range values {
 			fmt.Println(name, value)
